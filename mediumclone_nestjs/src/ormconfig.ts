@@ -9,7 +9,7 @@ const config: DataSourceOptions = {
   password: '0000',
   database: 'mediumclone',
   entities: [path.join(__dirname, '/**/*.entity{.ts,.js}')],
-  synchronize: false,
+  synchronize: true,
 //   migrations: [path.join(__dirname, '/migrations/**/*{.ts, .js}')],
 //   cli: {
 //     migrationsDir: 'src/migrations',
