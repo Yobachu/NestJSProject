@@ -1,7 +1,7 @@
-import {  DataSourceOptions } from 'typeorm';
+import { ConnectionOptions} from 'typeorm';
 import * as path from 'path';
 
-const config: DataSourceOptions = {
+const config: ConnectionOptions = {
   type: 'postgres',
   host: 'localhost',
   port: 5432,
@@ -9,11 +9,11 @@ const config: DataSourceOptions = {
   password: '0000',
   database: 'mediumclone',
   entities: [path.join(__dirname, '/**/*.entity{.ts,.js}')],
-  synchronize: true,
-//   migrations: [path.join(__dirname, '/migrations/**/*{.ts, .js}')],
-//   cli: {
-//     migrationsDir: 'src/migrations',
-//   }
+  synchronize: false,
+  migrations: [path.join(__dirname, '/migrations/**/*{.ts, .js}')],
+  cli: {
+    migrationsDir: 'src/migrations',
+  }
 };
 
 export default config;
