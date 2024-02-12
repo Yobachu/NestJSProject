@@ -2,6 +2,7 @@ import { User } from "@app/user/decorators/user.decorators";
 import { AuthGuard } from "@app/user/guards/auth.gurd";
 import { UserEntity } from "@app/user/user.entity";
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { query } from "express";
 import { ArticleService } from "./article.service";
 import { CreateArticleDto } from "./dto/createArticle.dto";
 import { UpdateArticleDto } from "./dto/updateArticle.dto";
@@ -17,6 +18,12 @@ export class ArticleController{
     @Get()
     async findAll(@User('id') currentUserId: number, @Query() query: any): Promise<ArticlesResponseInterface>{
         return await this.articleService.findAll(currentUserId, query)
+    }
+
+    @Get('feed')
+    @UseGuards(AuthGuard)
+    async getFeed(@User('id') currentUserId: number, @Query() query: any): Promise<ArticlesResponseInterface>{
+        return await this.articleService.getFeed(currentUserId, query)
     }
 
     @Post()
