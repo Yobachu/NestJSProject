@@ -1,5 +1,6 @@
+import { BackendValidationPipe } from "@app/shared/pipes/backendValidation.pipe";
 import { ExpressRequestIntreface } from "@app/types/expressRequest.itnerface";
-import { Body, Controller, Get, Post, Put, Req, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, Post, Put, Req, UseGuards, UsePipes } from "@nestjs/common";
 import { request } from "express";
 import { User } from "./decorators/user.decorators";
 import { CreateUserDto } from "./dto/createUser.dto";
@@ -15,14 +16,14 @@ export class UserController{
     constructor(private readonly userService: UserService){}
 
     @Post('users')
-    @UsePipes(new ValidationPipe())
+    @UsePipes(new BackendValidationPipe())
     async createUser(@Body('user') createUserDto: CreateUserDto,): Promise<UserResponseInterface>{
         const user = await this.userService.createUser(createUserDto);
         return this.userService.buildUserResponse(user)
     }
     
     @Post('users/login')
-    @UsePipes(new ValidationPipe())
+    @UsePipes(new BackendValidationPipe())
     async login(@Body('user') loginUserDto: LoginUserDto,): Promise<UserResponseInterface>{
         const user = await this.userService.login(loginUserDto);
         return this.userService.buildUserResponse(user)
